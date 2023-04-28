@@ -37,7 +37,7 @@ GROUP BY from_user_id;
 3. Выберите все сообщения, отсортируйте сообщения по возрастанию даты отправления (created_at) и 
 найдите разницу дат отправления между соседними сообщениями, получившегося списка. (используйте LEAD или LAG)
 */
--- вариант 1
+-- №1
 CREATE OR REPLACE VIEW temp AS 
 SELECT *, 
 	LEAD(created_at) OVER (ORDER BY created_at) AS 'Next'
@@ -47,7 +47,7 @@ ORDER BY created_at;
 SELECT from_user_id, to_user_id, TIMESTAMPDIFF(SECOND, created_at, Next) as 'Разница в секундах до следующего сообщения'
 from temp;
 
--- вариант 2
+-- №2
 CREATE OR REPLACE VIEW Time_bw_messages AS
 WITH Temp AS 
 (
